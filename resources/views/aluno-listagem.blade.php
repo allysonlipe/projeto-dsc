@@ -1,22 +1,21 @@
 @extends('adminlte::page')
 
-@section('title', 'Listagem de Cursos')
+@section('title', 'Listagem de Alunos')
 
 @section('content_header')
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item py-2">Cursos</li>
+            <li class="breadcrumb-item py-2">Alunos</li>
         </ol>
     </nav>
     
-    <a href="{{ route('curso.cadastro') }}" class="btn btn-secondary">Novo Cadastro</a>
-    
+    <a href="{{ route('aluno.cadastro') }}" class="btn btn-secondary">Novo Aluno</a>
+   
 @stop
 
 
 @section('content')
-
-    <div class="card">
+<div class="card">
     <div class="card-header">
         Listagem de Cursos
     </div>
@@ -25,15 +24,18 @@
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
+                <th>Email</th>
                 <th colspan="2" class="text-center" >Ações</th>
             </tr>
-
+        
+            
             @forelse($objetos as $objeto)
             <tr>
                 <td> {{ $objeto['id'] }} </td>
                 <td> {{ $objeto['nome'] }} </td>
-                <td class="text-center"> <a href="{{ route('curso.alterar', ['id' => $objeto['id']] ) }}">Alterar</a> </td>
-                <td class="text-center"> <a href="{{ route('curso.deletar', ['id' => $objeto['id']] ) }}">Deletar</a> </td>
+                <td> {{ $objeto['email'] }} </td>
+                <td class="text-center"> <a href="{{ route('aluno.alterar', ['id' => $objeto['id']] ) }}">Alterar</a> </td>
+                <td class="text-center"> <a href="{{ route('aluno.deletar', ['id' => $objeto['id']] ) }}">Deletar</a> </td>
             </tr>
             @empty
             <tr>
@@ -41,12 +43,8 @@
             </tr>
             @endforelse
         </table>
-    </div>
-    <!-- <div class="card-footer text-body-secondary">
-        Link Paginação
-    </div> -->
-    </div>
-    
+    <div></div>
+</div>
 @stop
 
 @section('css')

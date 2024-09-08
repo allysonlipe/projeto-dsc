@@ -14,4 +14,10 @@ class Curso extends Model
     protected $guarded = ['id'];
 
     protected $fillable = ['nome'];
+
+    public function alunos()
+    {
+        return $this->belongsToMany(Aluno::class, 'aluno_curso');
+    }
+    
 }

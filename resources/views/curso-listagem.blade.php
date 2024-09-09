@@ -10,9 +10,7 @@
     </nav>
     
     <a href="{{ route('curso.cadastro') }}" class="btn btn-secondary">Novo Cadastro</a>
-    
 @stop
-
 
 @section('content')
 
@@ -25,28 +23,51 @@
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
-                <th colspan="2" class="text-center" >Ações</th>
+                <th colspan="2" class="text-center">Ações</th>
             </tr>
 
             @forelse($objetos as $objeto)
             <tr>
-                <td> {{ $objeto['id'] }} </td>
-                <td> {{ $objeto['nome'] }} </td>
-                <td class="text-center"> <a href="{{ route('curso.alterar', ['id' => $objeto['id']] ) }}">Alterar</a> </td>
-                <td class="text-center"> <a href="{{ route('curso.deletar', ['id' => $objeto['id']] ) }}">Deletar</a> </td>
+                <td>{{ $objeto['id'] }}</td>
+                <td>{{ $objeto['nome'] }}</td>
+                <td class="text-center">
+                    <a class="btn btn-primary" href="{{ route('curso.alterar', ['id' => $objeto['id']] ) }}">Alterar</a>
+                </td>
+                <td class="text-center">
+                    <!-- Botão que abre o modal -->
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="{{ $objeto['id'] }}" data-nome="{{ $objeto['nome'] }}">Deletar</button>
+                </td>
             </tr>
             @empty
             <tr>
-                <td> Sem Dados no Banco de Dados </td>
+                <td colspan="4">Sem Dados no Banco de Dados</td>
             </tr>
             @endforelse
         </table>
     </div>
-    <!-- <div class="card-footer text-body-secondary">
-        Link Paginação
-    </div> -->
     </div>
-    
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Você realmente deseja excluir o curso <strong id="cursoNome"></strong>?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <a class="text-center btn btn-danger" href="{{ isset($objeto) ? route('curso.deletar', ['id' => $objeto->id] ) : '#' }}">Deletar</a>
+            </div>
+        </div>
+      </div>
+    </div>
+
 @stop
 
 @section('css')
@@ -55,5 +76,16 @@
 @stop
 
 @section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+    <script>
+        // Script para abrir o modal com o nome e ID corretos
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Botão que acionou o modal
+            var id = button.data('id') // Extraindo informações dos atributos data-*
+            var nome = button.data('nome') 
+
+            var modal = $(this)
+            modal.find('#cursoNome').text(nome) // Atualiza o nome no modal
+            modal.find('#deleteForm').attr('action', '/curso/deletar/' + id) // Atualiza a ação do formulário
+        })
+    </script>
 @stop

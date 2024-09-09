@@ -35,6 +35,26 @@ class ModelHasPermissionsSeeder extends Seeder
                 'model_type' => 'App\Models\User',
                 'model_id' => 1,
             ],
+            [
+                'permission_id' => 5,
+                'model_type' => 'App\Models\User',
+                'model_id' => 1,
+            ],
+            [
+                'permission_id' => 6,
+                'model_type' => 'App\Models\User',
+                'model_id' => 1,
+            ],
+            [
+                'permission_id' => 7,
+                'model_type' => 'App\Models\User',
+                'model_id' => 1,
+            ],
+            [
+                'permission_id' => 8,
+                'model_type' => 'App\Models\User',
+                'model_id' => 1,
+            ],
         ]);
     }
 }

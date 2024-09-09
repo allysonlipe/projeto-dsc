@@ -17,5 +17,10 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'curso_cadastrar']);
         Permission::create(['name' => 'curso_alterar']);
         Permission::create(['name' => 'curso_deletar']);
+
+        Permission::create(['name' => 'aluno_listar']);
+        Permission::create(['name' => 'aluno_cadastrar']);
+        Permission::create(['name' => 'aluno_alterar']);
+        Permission::create(['name' => 'aluno_deletar']);
     }
 }

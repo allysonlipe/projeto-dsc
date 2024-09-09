@@ -69,8 +69,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $user->givePermissionTo('curso_listar', 'curso_alterar');
-
+        $user->givePermissionTo('curso_listar', 'curso_alterar', 'aluno_listar', 'aluno_alterar');
         return $user;
     }
 }
